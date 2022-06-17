@@ -78,20 +78,16 @@ def test_encryption_on_one_word():
     # decr = d_cipher.decrypt(encr)
     # print(f"Our data has been decrypted:{decr}")
 
-    data = b"secret"
+    data = b"YARYNA"
     key = get_random_bytes(16)
     cipher = AES.new(key, AES.MODE_OFB)
     ct_bytes = cipher.encrypt(data)
+    print(ct_bytes)
     iv = b64encode(cipher.iv).decode('utf-8')
-    ct = b64encode(ct_bytes).decode('utf-8')
-    result = json.dumps({'iv': iv, 'ciphertext': ct})
-    print(result)
     try:
-        b64 = json.loads(result)
-        iv = b64decode(b64['iv'])
-        ct = b64decode(b64['ciphertext'])
+        iv = b64decode(iv)
         cipher = AES.new(key, AES.MODE_OFB, iv=iv)
-        pt = cipher.decrypt(ct)
+        pt = cipher.decrypt(ct_bytes)
         print("The message was: ", pt)
     except (ValueError, KeyError):
         print("Incorrect decryption")
