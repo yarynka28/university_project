@@ -57,7 +57,3 @@ for root,dirs,files in os.walk(folder_path):
             file.write(decr)
             file.close()
 print(f"Your files in {folder_path} and it's subfolders have been decrypted!")
-
-
-
-
