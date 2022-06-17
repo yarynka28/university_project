@@ -69,7 +69,7 @@ def test_encryption_on_one_word():
     encr = cipher.encrypt(data)
     print(f"Our data has been encrypted:{encr}")
     d_cipher = AES.new(key, AES.MODE_OFB)
-    decr = d_cipher.decrypt(data)
+    decr = d_cipher.decrypt(encr)
     print(f"Our data has been decrypted:{decr}")
 test_encryption_on_one_word()
 
