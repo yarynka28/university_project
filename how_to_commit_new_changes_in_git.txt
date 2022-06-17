@@ -1,0 +1,5 @@
+1.Change file in PyCharm.
+2.add to staging:
+git add file1.txt
+git commit -m "Add file1.txt(commit_name)"
+git push origin master
